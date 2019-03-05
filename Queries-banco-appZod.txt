@@ -1,0 +1,172 @@
+Primeira tabela a ser criada :
+
+CREATE TABLE e_partner
+(
+e_partner_id varchar(250) not null,
+created timestamp,
+name varchar(250),
+address varchar(250),
+phone1 varchar(25),
+phone2 varchar(25),
+email varchar(100),
+cnpj varchar(50),
+description varchar(250),
+socialnetwork varchar(250),
+PRIMARY KEY (e_partner_id)
+)
+
+Segunda:  
+
+CREATE TABLE e_product_sales
+(
+e_product_sales_id varchar(250) not null,
+labor varchar(250),
+cost_additional varchar(250),
+price_sales varchar(250),
+totalprice_sales varchar(250),
+PRIMARY KEY (e_product_sales_id)
+)
+
+Terceira:
+
+CREATE TABLE e_product
+(
+e_product_id varchar(250) not null,
+e_product_sales_id varchar(250),
+e_partner_id varchar(250),
+created timestamp,
+updated timestamp,
+isactive boolean,
+name varchar(250),
+code int,
+code_additional int,
+type varchar(250),
+qty int,
+price varchar(250),
+total varchar(250),
+description varchar(250),
+PRIMARY KEY (e_product_id),
+FOREIGN KEY (e_product_sales_id) REFERENCES e_product_sales (e_product_sales_id),
+FOREIGN KEY (e_partner_id) REFERENCES e_partner (e_partner_id)
+)
+
+Quarta:
+
+CREATE TABLE e_client
+(
+e_client_id varchar(250) not null,
+e_product_id varchar(250),
+created timestamp,
+updated timestamp,
+code int,
+name varchar(250),
+address varchar(250),
+rg varchar(50),
+cpf varchar(50),
+phone1 varchar(50),
+phone2 varchar(50),
+email varchar(100),
+description varchar(250),
+PRIMARY KEY (e_client_id),
+FOREIGN KEY (e_product_id) REFERENCES e_product (e_product_id)
+)
+
+Quinta:
+
+CREATE TABLE e_ticket
+(
+e_ticket_id varchar(250) not null,
+e_client_id varchar(250),
+created timestamp,
+updated timestamp,
+ticket int,
+code_client int,
+name_client varchar(250),
+address varchar(250),
+rg varchar(50),
+cpf varchar(50),
+phone1 varchar(50),
+phone2 varchar(50),
+email varchar(100),
+description_client varchar(250),
+isactive boolean,
+PRIMARY KEY (e_ticket_id),
+FOREIGN KEY (e_client_id) REFERENCES e_client (e_client_id)
+)
+
+Sexta:
+
+CREATE TABLE e_product_session
+(
+e_product_session_id varchar(250) not null,
+e_product_id varchar(250),
+created timestamp,
+name varchar(250),
+code int,
+code_additional int,
+discount varchar(250),
+type varchar(250),
+qty int,
+labor varchar(250),
+cost_additional varchar(250),
+price_sales varchar(250),
+totalprice_sales varchar(250),
+PRIMARY KEY (e_product_session_id),
+FOREIGN KEY (e_product_id) REFERENCES e_product (e_product_id)
+)
+
+Sétima:
+
+CREATE TABLE e_product_close
+(
+e_product_close_id varchar(250) not null,
+e_product_session_id varchar(250),
+e_ticket_id varchar(250),
+created timestamp,
+name varchar(250),
+code int,
+code_additional int,
+discount varchar(250),
+type varchar(250),
+qty int, 
+labor varchar(250),
+cost_additional varchar(250),
+price_sales varchar(250),
+totalprice_sales varchar(250),
+issales boolean,
+PRIMARY KEY (e_product_close_id),
+FOREIGN KEY (e_product_session_id) REFERENCES e_product_session (e_product_session_id),
+FOREIGN KEY (e_ticket_id) REFERENCES e_ticket (e_ticket_id)
+)
+
+Oitava:
+
+CREATE TABLE e_payments
+(
+e_payments_id varchar(250) not null,
+e_product_close_id varchar(250),
+form_payment varchar(250),
+sinal varchar(250),
+total_payable varchar(250),
+total_reimaning varchar(250),
+date_delivery varchar(250),
+ispaid boolean,
+PRIMARY KEY (e_payments_id),
+FOREIGN KEY (e_product_close_id) REFERENCES e_product_close (e_product_close_id)
+)
+
+Nona:
+
+CREATE TABLE temporarypricetag
+
+(
+ 
+code integer,
+
+name character varying(250),
+
+type character varying(100),
+
+salesprice character varying(50)
+
+)
